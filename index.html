@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+
+    <head>ОГЗ
+		<title>Обратная геодезическая задача</title>
+		
+		<link rel="stylesheet" href="leaflet.css"/>
+		<script src="leaflet.js"></script>
+	</head>
+	
+    <body>
+	
+		<script type="text/javascript">
+			function CalcOGZ()
+				{
+					var inp_xknp = document.getElementById('Xknp');
+					var inp_yknp = document.getElementById('Yknp');
+					var inp_xz = document.getElementById('Xz');
+					var inp_yz = document.getElementById('Yz');
+					var out_Dk = document.getElementById('Dk');
+					var out_Ak = document.getElementById('Ak');
+
+					var value_xknp = inp_xknp.value;
+					var value_yknp = inp_yknp.value;
+					var value_xz = inp_xz.value;
+					var value_yz = inp_yz.value;
+
+					var dx = value_xz - value_xknp;
+					var dy = value_yz - value_yknp;
+
+					var res_Dk = Math.sqrt(dx * dx + dy * dy);
+					
+					var R= (Math.acos(dx/res_Dk)*9.55);
+					var res_Ak;
+				   if(dy>0){res_Ak = R;}
+				   else {res_Ak = 60 - R;}
+			   
+				   document.getElementById('Ak').value = res_Ak.toFixed(2);
+				   document.getElementById('Dk').value = res_Dk.toFixed();
+					
+				}
+		</script>
+		
+		<table align="center" border="1" cellpadding="3" cellspacing="1">
+			<tbody>
+				<tr>
+					<td colspan="8" style="text-align: center;">
+						<table align="center" border="1" cellpadding="3" cellspacing="1">
+							<tbody>
+								<tr>
+									<td colspan="3" style="text-align: center;">
+										<p><font face="Tahoma, Geneva, sans-serif"><font size="4"><b>Обратная геодезическая задача</b></font></font></p>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="text-align: right;"><font size="4"><font face="Tahoma, Geneva, sans-serif"><b>Xкнп:</b></font></font></td>
+									<td style="width: 120px; text-align: center;"><input id="Xknp" maxlength="7" name="Xknp" size="10" type="number"></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="text-align: right;"><font size="4"><font face="Tahoma, Geneva, sans-serif"><b>Yкнп:</b></font></font></td>
+									<td style="width: 120px; text-align: center;"><input id="Yknp" maxlength="7" name="Yknp" size="10" type="number"></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="text-align: right;"><font size="4"><font face="Tahoma, Geneva, sans-serif"><b>Хц:</b></font></font></td>
+									<td style="width: 120px; text-align: center;"><input id="Xz" maxlength="7" name="Xz" size="10" type="number"></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="text-align: right;"><font size="4"><font face="Tahoma, Geneva, sans-serif"><b>Yц:</b></font></font></td>
+									<td style="width: 120px; text-align: center;"><input id="Yz" maxlength="7" name="Yz" size="10" type="number"></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="text-align: right;">&nbsp;</td>
+									<td style="text-align: center;"><font face="Tahoma, Geneva, sans-serif"><input name="button" type="button" value="    Решение    " onclick="CalcOGZ()"></font></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="vertical-align: top; text-align: right;"><font size="4"><font face="Tahoma, Geneva, sans-serif"><b><span style="text-align: right;">Ак:</span></b></font></font></td>
+									<td style="vertical-align: top; text-align: center;"><input id="Ak" maxlength="4" name="Ak" size="10" type="number"></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="vertical-align: top; text-align: right;"><font size="4"><font face="Tahoma, Geneva, sans-serif"><b>Дк:</b></font></font></td>
+									<td style="vertical-align: top; text-align: center;"><input id="Dk" name="Dk" size="10" type="number"></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+					<td colspan="8" style="text-align: center;">
+						<iframe 
+							width="100%" 
+							height="200" 
+							frameborder="0" 
+							scrolling="no" 
+							marginheight="0" 
+							marginwidth="0" 
+							src="http://www.openstreetmap.org/export/embed.html?bbox=36.42405509948731%2C49.92583647987845%2C36.44615650177003%2C49.93775647988345&amp;layer=mapnik&amp;marker=49.93178994227235%2C36.43510580062866" 
+							style="border: 1px solid black">
+						</iframe>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>
+		<p>
+		<div id="mapid" style="width: 1200px; height: 800px;"></div>
+		
+		<script>
+
+			var mymap = L.map('mapid').setView([49.93178994227235, 36.43510580062866], 17);
+
+			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', 
+				{
+					maxZoom: 18,
+					attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+						'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+						'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+					id: 'mapbox.streets'
+				}).addTo(mymap);
+
+		</script>
+		
+    </body>
+</html>
