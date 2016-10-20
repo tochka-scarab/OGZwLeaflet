@@ -10,12 +10,6 @@
 		<!-- Добавляем ссылку на JS-скрипт библиотеки -->
 		<script src="leaflet.js"></script>
 		
-		<style>
- 
-			#map {width: 1250px; height: 550px; }
-		 
-		</style>
-		
 	</head>
 	
     <body>
@@ -110,7 +104,7 @@
 		</table>
 		<p>
 		<p>
-		<div id="map"></div>
+		<div id="map" style="width: 1250px; height: 550px;"></div>
 		
 		<script>
 
@@ -125,6 +119,22 @@
 			
 			// Добавляем маркер
 			L.marker([49.93178994227235, 36.43510580062866]).addTo(map);
+			
+			// Добавляем вывод координат по клику
+			map.on('click', onMapClick);
+			var popup = new L.Popup();
+			function onMapClick(e) 
+			{
+
+			var latlngStr = '(' + e.latlng.lat.toFixed(14) + ', ' + e.latlng.lng.toFixed(14) + ')';
+
+				popup.setLatLng(e.latlng);
+
+				popup.setContent("Координаты точки " + latlngStr);
+
+				map.openPopup(popup);
+
+			}
 
 		</script>
 		
