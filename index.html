@@ -109,7 +109,7 @@
 		<script>
 
 			//Определяем карту, координаты центра и начальный масштаб
-			var map = L.map('map').setView([49.93178994227235, 36.43510580062866], 16);
+			var map = L.map('map').setView([49.93178994227235, 36.43510580062866], 17);
 
 			//Добавляем на нашу карту слой OpenStreetMap
 			L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
@@ -126,13 +126,32 @@
 			function onMapClick(e) 
 			{
 
-			var latlngStr = '(' + e.latlng.lat.toFixed(14) + ', ' + e.latlng.lng.toFixed(14) + ')';
+			var latlngStr = 'X = ' + e.latlng.lat.toFixed(14) + '<br> Y = ' + e.latlng.lng.toFixed(14);
 
 				popup.setLatLng(e.latlng);
+				
+				vyborStr = '<p><input name="vybor" type="radio" value="knp" onclick="check(0)"> КНП</p>' + 
+						   '<p><input name="vybor" type="radio" value="tcel" onclick="check(1)"> Цель</p>';
+						   //+
+						   //'<p><input type="submit" value="Выбрать" onclick/onchange="check()"></p>';
 
-				popup.setContent("Координаты точки " + latlngStr);
+				popup.setContent('Координаты точки <br>' + latlngStr + '<br>' + vyborStr);
 
 				map.openPopup(popup);
+				
+				function check(i)
+				{
+				  //var rarr = document.getElementsByName("vybor");
+				  if(i == 0)
+				  {
+					//То выбран первый radio
+					alert('Точка - КНП');
+				  }
+				  else
+				  {
+					alert('Точка - Цель');
+				  };
+				}
 
 			}
 
