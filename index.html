@@ -118,9 +118,18 @@
 			}).addTo(map);
 			
 			// Добавляем маркер
-			var marker1 = L.marker([49.93178994227235, 36.43510580062866]).addTo(map);
+			var markerLat = 49.93178994227235;
+			var markerLon = 36.43510580062866;
+			var marker1 = L.marker([markerLat, markerLon],{draggable: true, title: 'marker1'}).addTo(map);
 			
-			marker1.bindPopup("49.93178994227235, 36.43510580062866");
+			// Создаём балун с координатами маркера
+			var popup = L.popup()
+						.setContent(
+									'X = ' + marker1.getLatLng().lat.toFixed(14) 
+									+ '<br> Y = ' + marker1.getLatLng().lng.toFixed(14));
+			
+			//marker1.bindPopup(popup).openPopup(); // Создаём балун сразу открытым
+			marker1.bindPopup(popup);
 			
 			// Добавляем вывод координат по клику
 			map.on('click', onMapClick);
