@@ -130,6 +130,19 @@
 			//marker1.bindPopup(popup).openPopup(); // Создаём балун сразу открытым
 			marker1.bindPopup(popup);
 			
+			marker1.on('click', 
+				function(e) 
+				{
+					var markerLat = e.getLatLng().lat;
+					var markerLng = e.getLatLng().lng;
+					marker1.setLatLng();
+					var popup1 = L.popup()
+						.setContent(
+									'X = ' + markerLat.toFixed(14) 
+									+ '<br> Y = ' + markerLng.toFixed(14));
+					marker1.bindPopup(popup1);
+				});
+			
 			// Добавляем вывод координат по клику
 			map.on('click', onMapClick);
 			var popup = new L.Popup();
