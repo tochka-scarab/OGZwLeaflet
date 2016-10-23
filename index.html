@@ -118,9 +118,8 @@
 			}).addTo(map);
 			
 			// Добавляем маркер
-			var markerLat = 49.93178994227235;
-			var markerLon = 36.43510580062866;
-			var marker1 = L.marker([markerLat, markerLon],{draggable: true, title: 'marker1'}).addTo(map);
+			var markerPosition  = [49.93178994227235, 36.43510580062866];
+			var marker1 = L.marker(markerPosition,{draggable: true, title: 'marker1'}).addTo(map);
 			
 			// Создаём балун с координатами маркера
 			var popup = L.popup()
