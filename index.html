@@ -130,17 +130,23 @@
 			//marker1.bindPopup(popup).openPopup(); // Создаём балун сразу открытым
 			marker1.bindPopup(popup);
 			
-			marker1.on('click', 
-				function(e) 
+			marker1.on('remove', 
+				function(marker1) 
 				{
-					var markerLat = e.getLatLng().lat;
-					var markerLng = e.getLatLng().lng;
-					marker1.setLatLng();
-					var popup1 = L.popup()
-						.setContent(
-									'X = ' + markerLat.toFixed(14) 
-									+ '<br> Y = ' + markerLng.toFixed(14));
-					marker1.bindPopup(popup1);
+					//var markerLat = e.getLatLng().lat;
+					//var markerLng = e.getLatLng().lng;
+					//marker1.setLatLng();
+					//var popup1 = L.popup()
+					//	.setContent(
+					//				'X = ' + markerLat.toFixed(14) 
+					//				+ '<br> Y = ' + markerLng.toFixed(14));
+					//marker1.bindPopup(popup1);
+					// Создаём балун с координатами маркера
+					popup = L.popup()
+								.setContent(
+											'X = ' + marker1.getLatLng().lat.toFixed(14) 
+											+ '<br> Y = ' + marker1.getLatLng().lng.toFixed(14));
+					marker1.bindPopup(popup);
 				});
 			
 			// Добавляем вывод координат по клику
@@ -150,27 +156,35 @@
 			{
 
 			var latlngStr = 'X = ' + e.latlng.lat.toFixed(14) + '<br> Y = ' + e.latlng.lng.toFixed(14);
+			
+			var flagTochki;
 
 				popup.setLatLng(e.latlng);
 				
-				vyborStr = '<p><input name="vybor" type="radio" value="knp" onclick="check(0)"> КНП</p>' + 
-						   '<p><input name="vybor" type="radio" value="tcel" onclick="check(1)"> Цель</p>';
-						   //+
-						   //'<p><input type="submit" value="Выбрать" onclick/onchange="check()"></p>';
+				vyborStr = '<p><input name="vybor" type="radio" value="knp" onclick="flagTochki = 0"> КНП</p>' + 
+						   '<p><input name="vybor" type="radio" value="tcel" onclick="flagTochki = 1"> Цель</p>' +
+						   '<p><input type="submit" value="Выбрать" onclick="check()"></p>';
+				var markerXY = 'X = ' + marker1.getLatLng().lat.toFixed(14) + '<br> Y = ' + marker1.getLatLng().lng.toFixed(14)
 
-				popup.setContent('Координаты точки <br>' + latlngStr + '<br>' + vyborStr);
+				popup.setContent('Координаты точки <br>' + latlngStr + '<br>' + vyborStr + markerXY);
 
 				map.openPopup(popup);
 				
-				function check(i)
+				popup = L.popup()
+								.setContent(
+											'X = ' + marker1.getLatLng().lat.toFixed(14) 
+											+ '<br> Y = ' + marker1.getLatLng().lng.toFixed(14));
+				marker1.bindPopup(popup);
+				
+				function check()
 				{
 				  //var rarr = document.getElementsByName("vybor");
-				  if(i == 0)
+				  if(flagTochki == 0)
 				  {
 					//То выбран первый radio
 					alert('Точка - КНП');
 				  }
-				  else
+				  elseif (flagTochki == 1)
 				  {
 					alert('Точка - Цель');
 				  };
