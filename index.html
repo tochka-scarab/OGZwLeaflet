@@ -130,8 +130,8 @@
 			//marker1.bindPopup(popup).openPopup(); // Создаём балун сразу открытым
 			marker1.bindPopup(popup);
 			
-			marker1.on('remove', 
-				function(marker1) 
+			marker1.on('moveend', 
+				function() 
 				{
 					//var markerLat = e.getLatLng().lat;
 					//var markerLng = e.getLatLng().lng;
@@ -169,12 +169,7 @@
 				popup.setContent('Координаты точки <br>' + latlngStr + '<br>' + vyborStr + markerXY);
 
 				map.openPopup(popup);
-				
-				popup = L.popup()
-								.setContent(
-											'X = ' + marker1.getLatLng().lat.toFixed(14) 
-											+ '<br> Y = ' + marker1.getLatLng().lng.toFixed(14));
-				marker1.bindPopup(popup);
+
 				
 				function check()
 				{
