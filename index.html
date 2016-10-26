@@ -133,15 +133,7 @@
 			marker1.on('moveend', 
 				function() 
 				{
-					//var markerLat = e.getLatLng().lat;
-					//var markerLng = e.getLatLng().lng;
-					//marker1.setLatLng();
-					//var popup1 = L.popup()
-					//	.setContent(
-					//				'X = ' + markerLat.toFixed(14) 
-					//				+ '<br> Y = ' + markerLng.toFixed(14));
-					//marker1.bindPopup(popup1);
-					// Создаём балун с координатами маркера
+					// Создаём балун с координатами маркера после перемещения маркера
 					popup = L.popup()
 								.setContent(
 											'X = ' + marker1.getLatLng().lat.toFixed(14) 
@@ -164,9 +156,8 @@
 				vyborStr = '<p><input name="vybor" type="radio" value="knp" onclick="flagTochki = 0"> КНП</p>' + 
 						   '<p><input name="vybor" type="radio" value="tcel" onclick="flagTochki = 1"> Цель</p>' +
 						   '<p><input type="submit" value="Выбрать" onclick="check()"></p>';
-				var markerXY = 'X = ' + marker1.getLatLng().lat.toFixed(14) + '<br> Y = ' + marker1.getLatLng().lng.toFixed(14)
 
-				popup.setContent('Координаты точки <br>' + latlngStr + '<br>' + vyborStr + markerXY);
+				popup.setContent('Координаты точки <br>' + latlngStr + '<br>' + vyborStr);
 
 				map.openPopup(popup);
 
